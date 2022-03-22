@@ -1,7 +1,1 @@
-Ariel Smith
-Mike Samuels
-Mike Samuels
-
-another line 
-
-moar code!
+Here is the backend REST api for our final project
