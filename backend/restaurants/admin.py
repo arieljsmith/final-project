@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import Restaurant
 
-# Register your models here.
+class RestaurantAdmin(admin.ModelAdmin):
+    list_display = ('name', 'city')
+
+admin.site.register(Restaurant, RestaurantAdmin)
+
+
