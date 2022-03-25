@@ -20,6 +20,7 @@ from restuarant import views
 
 router = routers.DefaultRouter()
 router.register(r'restaurants', views.RestaurantView, 'restaurant')
+router.register(r'cities', views.CityView, 'city')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
