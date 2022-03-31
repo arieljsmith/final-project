@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'webpack_loader',
-    'restuarant',
+    'restaurant',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +143,5 @@ WEBPACK_LOADER = {
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
+
+AUTH_USER_MODEL = 'restaurant.UserAccount'
