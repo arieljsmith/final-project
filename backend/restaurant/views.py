@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .serializers import RestaurantSerializer, CitySerializer
+from .serializers import RestaurantSerializer, CitySerializer, UserSerializer
 from .models import Restaurant, City, UserAccount
 
 class RestaurantView(viewsets.ModelViewSet):
@@ -12,5 +12,5 @@ class CityView(viewsets.ModelViewSet):
     queryset = City.objects.all()
     
 class UserView(viewsets.ModelViewSet):
-    serializer_class = CitySerializer
+    serializer_class = UserSerializer
     queryset = UserAccount.objects.all()
