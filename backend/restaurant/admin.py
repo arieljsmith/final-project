@@ -1,9 +1,9 @@
 from django.contrib import admin
 from .models import Restaurant
 
-class ResturantAdmin(admin.ModelAdmin):
+class RestaurantAdmin(admin.ModelAdmin):
     list_display = ('name', 'city')
 
-admin.site.register(Restaurant, ResturantAdmin)
+admin.site.register(Restaurant, RestaurantAdmin)
 
 
