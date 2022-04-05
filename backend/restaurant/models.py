@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.utils import timezone
 
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
@@ -40,16 +42,16 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
         return self.name
 
 class City(models.Model):
-    # creator will go here when users are created
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, default=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=120)
 
     def __str__(self):
         return self.name
 
 class Restaurant(models.Model):
-    #creator = models.ForgeinKey(null=True, default=True, on_delete=models.CASCADE)
     name = models.TextField(max_length=120)
     city = models.ForeignKey(to='City', on_delete=models.CASCADE, null=True, default=True, related_name='restaurant')
+    created_on = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.name
