@@ -27,7 +27,9 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://undefined-rest-api.herokuapp.com/']
+
+
 
 
 # Application definition
@@ -41,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'webpack_loader',
     'restaurant',
 ]
 
@@ -133,15 +134,20 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000'
 ]
 
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'dist/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-    }
-}
+# WEBPACK_LOADER = {
+#     'DEFAULT': {
+#         'BUNDLE_DIR_NAME': 'dist/',
+#         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+#     }
+# }
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'assets'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'assets'),
+# )
 
 AUTH_USER_MODEL = 'restaurant.UserAccount'
+
+# Configure Django App for Heroku
+import django_on_heroku
+django_on_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
