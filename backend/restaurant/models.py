@@ -52,6 +52,7 @@ class Restaurant(models.Model):
     name = models.TextField(max_length=120)
     city = models.ForeignKey(to='City', on_delete=models.CASCADE, null=True, default=True, related_name='restaurant')
     created_on = models.DateTimeField(default=timezone.now)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, default=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
