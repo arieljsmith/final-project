@@ -9,6 +9,8 @@ python-decouple = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
 django-webpack-loader = "*"
+django-on-heroku = "*"
+gunicorn = "*"
 
 [dev-packages]
 
