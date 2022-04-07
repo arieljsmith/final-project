@@ -11,6 +11,7 @@ django-cors-headers = "*"
 django-webpack-loader = "*"
 django-on-heroku = "*"
 gunicorn = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
