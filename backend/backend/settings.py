@@ -148,6 +148,6 @@ CORS_ORIGIN_WHITELIST = [
 AUTH_USER_MODEL = 'restaurant.UserAccount'
 
 # Configure Django App for Heroku
-import django_on_heroku
-django_on_heroku.settings(locals())
-del DATABASES['default']['OPTIONS']['sslmode']
+# import django_on_heroku
+# django_on_heroku.settings(locals())
+# del DATABASES['default']['OPTIONS']['sslmode']
