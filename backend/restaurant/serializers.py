@@ -23,4 +23,4 @@ class CitySerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount
-        fields =('email', 'name')
+        fields =('email', 'name', 'id')
