@@ -135,7 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
-    'https://restaurant-recommendations.netlify.app/'
+    'https://restaurant-recommendations.netlify.app'
 ]
 
 # WEBPACK_LOADER = {
