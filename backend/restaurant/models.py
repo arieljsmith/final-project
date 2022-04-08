@@ -44,6 +44,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 class City(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, default=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=120)
+
     def __str__(self):
         return self.name
 
@@ -52,6 +53,5 @@ class Restaurant(models.Model):
     city = models.ForeignKey(to='City', on_delete=models.CASCADE, null=True, default=True, related_name='restaurant')
     created_on = models.DateTimeField(default=timezone.now)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, default=True, blank=True, on_delete=models.CASCADE)
-
     def __str__(self):
         return self.name
