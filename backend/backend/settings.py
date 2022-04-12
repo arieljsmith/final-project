@@ -151,6 +151,12 @@ CORS_ORIGIN_WHITELIST = [
 
 AUTH_USER_MODEL = 'restaurant.UserAccount'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
 # Configure Django App for Heroku
 import django_on_heroku
 django_on_heroku.settings(locals())

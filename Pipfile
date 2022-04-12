@@ -12,6 +12,7 @@ django-webpack-loader = "*"
 django-on-heroku = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
