@@ -158,6 +158,13 @@ REST_FRAMEWORK = {
     ]
 }
 
+from datetime import timedelta
+
+SIMPLEJWT = {
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
+    "ROTATE_REFRESH_TOKENS": True,
+}
+
 # Configure Django App for Heroku
 import django_on_heroku
 django_on_heroku.settings(locals())

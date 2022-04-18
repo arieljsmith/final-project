@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Restaurant, City, UserAccount
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,3 +26,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount
         fields =('email', 'name', 'id')
+
+class TokenSerializer(TokenObtainPairSerializer):
+
+    def get_token(cls, user):
+        token = super(TokenSerializer, cls).get_token(user)
+
+        #add custom claims
+        token['email'] = user.email
+        return token
