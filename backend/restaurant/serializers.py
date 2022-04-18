@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Restaurant, City, UserAccount
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth.hashers import make_password
 
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,7 +26,11 @@ class CitySerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount
-        fields =('email', 'name', 'id')
+        fields =('email', 'name', 'id', 'password')
+
+    def validate_password(self, value: str) -> str:
+        # this changes user password from plaintext to a hashed value
+        return make_password(value)
 
 class TokenSerializer(TokenObtainPairSerializer):
 
