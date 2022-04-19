@@ -155,6 +155,8 @@ AUTH_USER_MODEL = 'restaurant.UserAccount'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':[
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ]
 }
 
@@ -164,6 +166,7 @@ SIMPLEJWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
     "ROTATE_REFRESH_TOKENS": True,
 }
+
 
 # Configure Django App for Heroku
 import django_on_heroku
