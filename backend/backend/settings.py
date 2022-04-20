@@ -183,7 +183,7 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
 
-# # Configure Django App for Heroku
-# import django_on_heroku
-# django_on_heroku.settings(locals())
-# del DATABASES['default']['OPTIONS']['sslmode']
+# Configure Django App for Heroku
+import django_on_heroku
+django_on_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
