@@ -6,6 +6,11 @@ from .serializers import RestaurantSerializer, CitySerializer, UserSerializer, T
 from .models import Restaurant, City, UserAccount
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
 
 
 class RestaurantView(viewsets.ModelViewSet):
@@ -26,10 +31,19 @@ class CityView(viewsets.ModelViewSet):
 
     
 class UserView(viewsets.ModelViewSet):
-    permissions_classes = (IsAuthenticatedOrReadOnly,)
+    permissions_classes = [AllowAny]
     serializer_class = UserSerializer
     queryset = UserAccount.objects.all()
 
-class TokenPairView(TokenObtainPairView):
-    permission_classes = (AllowAny,)
-    serializer_class = TokenSerializer
+class BlacklistTokenUpdateView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = ()
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

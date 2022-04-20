@@ -8,7 +8,7 @@ class CityAdmin(admin.ModelAdmin):
     list_display = ('creator', 'name')
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email')
+    list_display = ('name', 'email', 'id', 'is_active')
 
 admin.site.register(Restaurant, RestaurantAdmin)
 admin.site.register(City, CityAdmin)
