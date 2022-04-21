@@ -12,6 +12,7 @@ class RestaurantSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         rep['city'] = instance.city.name
+        rep['city_creator_id'] = instance.city.creator.id
         rep['creator'] = instance.creator.name
         rep['creator_id'] = instance.creator.id
         return rep
