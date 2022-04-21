@@ -34,6 +34,7 @@ class CitySerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         rep['creator'] = instance.creator.name
+        rep['creator_id'] = instance.creator.name
         return rep
 
 class UserSerializer(serializers.ModelSerializer):
