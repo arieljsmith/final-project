@@ -52,7 +52,7 @@ class City(models.Model):
 class Restaurant(models.Model):
     name = models.TextField(max_length=120)
     city = models.ForeignKey(to='City', on_delete=models.CASCADE, null=True, default=True, related_name='restaurant')
-    image_url = models.CharField(max_length=1000, null=True, blank=True)
+    image_url = models.CharField(max_length=1000, null=True, blank=True, default='')
     created_on = models.DateTimeField(default=timezone.now)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, default=True, blank=True, on_delete=models.CASCADE)
     def __str__(self):
