@@ -24,7 +24,7 @@ class UserAccountManager(BaseUserManager):
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255, default='name')
+    name = models.CharField(max_length=255)
     image = models.CharField(max_length=1000, null=True, blank=True, default='')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -50,7 +50,7 @@ class City(models.Model):
         return self.name
 
 class Restaurant(models.Model):
-    name = models.TextField(max_length=120, default='')
+    name = models.TextField(max_length=120)
     city = models.ForeignKey(to='City', on_delete=models.CASCADE, null=True, default=True, related_name='restaurant')
     image = models.CharField(max_length=1000, null=True, blank=True, default='')
     created_on = models.DateTimeField(default=timezone.now)
