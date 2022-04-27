@@ -16,7 +16,7 @@ from rest_framework import status
 class RestaurantView(viewsets.ModelViewSet):
     permissions_classes = (IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
     serializer_class = RestaurantSerializer
-    queryset = Restaurant.objects.all()
+    # queryset = Restaurant.objects.all()
     
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
@@ -24,7 +24,7 @@ class RestaurantView(viewsets.ModelViewSet):
 class CityView(viewsets.ModelViewSet):
     permissions_classes = (IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
     serializer_class = CitySerializer
-    queryset = City.objects.all()
+    # queryset = City.objects.all()
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
@@ -33,7 +33,7 @@ class CityView(viewsets.ModelViewSet):
 class UserView(viewsets.ModelViewSet):
     permissions_classes = [AllowAny]
     serializer_class = UserSerializer
-    queryset = UserAccount.objects.all()
+    # queryset = UserAccount.objects.all()
 
 class BlacklistTokenUpdateView(APIView):
     permission_classes = [AllowAny]
