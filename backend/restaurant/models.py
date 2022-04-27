@@ -20,11 +20,12 @@ class UserAccountManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
         return self.create_user(email, password, **extra_fields)
-    
+
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
+    image_url = models.CharField(max_length=120, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -51,6 +52,7 @@ class City(models.Model):
 class Restaurant(models.Model):
     name = models.TextField(max_length=120)
     city = models.ForeignKey(to='City', on_delete=models.CASCADE, null=True, default=True, related_name='restaurant')
+    image_url = models.CharField(max_length=120, null=True, blank=True)
     created_on = models.DateTimeField(default=timezone.now)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, default=True, blank=True, on_delete=models.CASCADE)
     def __str__(self):
