@@ -185,5 +185,5 @@ SIMPLE_JWT = {
 
 # Configure Django App for Heroku
 import django_on_heroku
-django_on_heroku.settings(locals(), databases=False)
+django_on_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
