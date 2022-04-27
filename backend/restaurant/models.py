@@ -26,6 +26,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     image = models.CharField(max_length=1000, null=True, blank=True, default='')
+    image = models.CharField(max_length=255, null=True, blank=True, default='')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -49,10 +50,19 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
+price = (
+    (1,1),
+    (2,2),
+    (3,3),
+    (4,4),
+)
+
 class Restaurant(models.Model):
     name = models.TextField(max_length=120)
     city = models.ForeignKey(to='City', on_delete=models.CASCADE, null=True, default=True, related_name='restaurant')
     image = models.CharField(max_length=1000, null=True, blank=True, default='')
+    image = models.CharField(max_length=255, null=True, blank=True, default='')
+    image = models.CharField(max_length=1, null=True, blank=True, default='')
     created_on = models.DateTimeField(default=timezone.now)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, default=True, blank=True, on_delete=models.CASCADE)
     def __str__(self):
