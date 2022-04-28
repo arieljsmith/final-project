@@ -1,5 +1,3 @@
-from tkinter import Image
-from tokenize import Name
 from django.shortcuts import render
 from rest_framework import viewsets
 
