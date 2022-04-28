@@ -21,5 +21,5 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/logout/blacklist/', BlacklistTokenUpdateView.as_view(), name='blacklist'),
     path('api/auth/', include('rest_framework.urls')),
-    path('api/<int:restaurant_id>/', RestaurantDetailView.as_view()),
+    path('api/details/<int:restaurant_id>/', RestaurantDetailView.as_view(), name='detail'),
 ]

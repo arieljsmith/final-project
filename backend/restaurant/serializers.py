@@ -12,6 +12,7 @@ class RestaurantSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         rep['city'] = instance.city.name
+        rep['city_id'] = instance.city.id
         rep['city_creator_id'] = instance.city.creator.id
         rep['creator'] = instance.creator.name
         rep['creator_id'] = instance.creator.id
@@ -26,6 +27,19 @@ class RestaurantSerializer(serializers.ModelSerializer):
         if not city_obj.creator == user:
             raise serializers.ValidationError('You do not have permission to do that')
         return value
+
+class RestaurantDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Restaurant
+        fields =('id', 'image', 'cuisine', 'price')
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep['creator'] = instance.creator.name
+        rep['creator_id'] = instance.creator.id
+        return rep
+
 
 class CitySerializer(serializers.ModelSerializer):
     creator = serializers.ReadOnlyField(source='creator.name')
