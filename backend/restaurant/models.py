@@ -46,6 +46,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 class City(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, default=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=120)
+    image = models.CharField(max_length=5000, null=True, blank=True, default='')
 
     def __str__(self):
         return self.name

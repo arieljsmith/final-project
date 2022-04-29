@@ -44,7 +44,7 @@ class CitySerializer(serializers.ModelSerializer):
     creator = serializers.ReadOnlyField(source='creator.name')
     class Meta:
         model = City
-        fields =('id', 'creator', 'name')
+        fields =('id', 'creator', 'name', 'image')
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         rep['creator'] = instance.creator.name
