@@ -4,7 +4,7 @@ from rest_framework import viewsets
 import restaurant
 
 from .permissions import IsOwnerOrReadOnly
-from .serializers import RestaurantSerializer, CitySerializer, UserSerializer, TokenSerializer, RestaurantDetailSerializer
+from .serializers import RestaurantSerializer, CitySerializer, UserSerializer, TokenSerializer, RestaurantDetailSerializer, UserDetailSerializer
 from .models import Restaurant, City, UserAccount
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -89,12 +89,41 @@ class CityView(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
-
     
 class UserView(viewsets.ModelViewSet):
     permissions_classes = [AllowAny]
     serializer_class = UserSerializer
     queryset = UserAccount.objects.all()
+
+
+class UserDetailView(APIView):
+    permissions_classes = (IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
+    serializer_class = UserDetailSerializer
+
+    def get_object(self, user_id):
+        try:
+            return UserAccount.objects.get(id=user_id)
+        except UserAccount.DoesNotExist:
+            return None
+
+    def get(self, request, user_id):
+        user_instance = self.get_object(user_id)
+        serializer = UserDetailSerializer(user_instance)
+        return Response(serializer.data)
+
+    def put(self, request, user_id):
+        user_instance = self.get_object(user_id)
+        serializer = UserDetailSerializer(user_instance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, user_id):
+        user_instance = self.get_object(user_id)
+        user_instance.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class BlacklistTokenUpdateView(APIView):
     permission_classes = [AllowAny]
