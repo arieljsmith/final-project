@@ -55,6 +55,10 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount
         fields = ('email', 'name', 'id', 'password', 'image', 'location')
+
+    def validate_password(self, value: str) -> str:
+        # this changes user password from plaintext to a hashed value
+        return make_password(value)
         
 class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -62,15 +66,6 @@ class UserDetailSerializer(serializers.ModelSerializer):
         fields = ('email', 'name', 'id', 'password', 'image', 'location')
         read_only_fields = ('email', 'name', 'password')
 
-    def validate_user(self, value):
-        # checks if user is creator of city 
-        value_id = value.id
-        user_obj = UserAccount.objects.get(id=value_id)
-        user = self.context['request'].user
-
-        if not user_obj.id == user:
-            raise serializers.ValidationError('You do not have permission to do that')
-        return user
 
 class TokenSerializer(TokenObtainPairSerializer):
 

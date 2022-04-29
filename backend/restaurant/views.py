@@ -97,7 +97,7 @@ class UserView(viewsets.ModelViewSet):
 
 
 class UserDetailView(APIView):
-    permissions_classes = (IsUserOrReadOnly,)
+    permissions_classes = [IsAuthenticatedOrReadOnly, IsUserOrReadOnly,]
     serializer_class = UserDetailSerializer
 
     def get_object(self, user_id):
@@ -113,7 +113,7 @@ class UserDetailView(APIView):
 
     def put(self, request, user_id):
         user_instance = self.get_object(user_id)
-        serializer = UserDetailSerializer(user_instance, data=request.data)
+        serializer = UserDetailSerializer(user_instance, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
