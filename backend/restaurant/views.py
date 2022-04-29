@@ -3,12 +3,13 @@ from rest_framework import viewsets
 
 import restaurant
 
-from .permissions import IsOwnerOrReadOnly, IsUserOrReadOnly
+from .permissions import UserPermissions
 from .serializers import RestaurantSerializer, CitySerializer, UserSerializer, TokenSerializer, RestaurantDetailSerializer, UserDetailSerializer
 from .models import Restaurant, City, UserAccount
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -18,7 +19,7 @@ from restaurant import serializers
 
 
 class RestaurantView(viewsets.ModelViewSet):
-    permissions_classes = (IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
+    permissions_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = RestaurantSerializer
     queryset = Restaurant.objects.all()
     
@@ -27,7 +28,7 @@ class RestaurantView(viewsets.ModelViewSet):
 
 
 class RestaurantDetailView(APIView):
-    permissions_classes = (IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
+    permissions_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = RestaurantDetailSerializer
     
     context_object_name = 'restaurant'
@@ -83,7 +84,7 @@ class RestaurantDetailView(APIView):
 
 
 class CityView(viewsets.ModelViewSet):
-    permissions_classes = (IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
+    permissions_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = CitySerializer
     queryset = City.objects.all()
 
@@ -97,7 +98,7 @@ class UserView(viewsets.ModelViewSet):
 
 
 class UserDetailView(APIView):
-    permissions_classes = [IsAuthenticatedOrReadOnly, IsUserOrReadOnly,]
+    permissions_classes = [UserPermissions,]
     serializer_class = UserDetailSerializer
 
     def get_object(self, user_id):
