@@ -68,9 +68,9 @@ class UserDetailSerializer(serializers.ModelSerializer):
         user_obj = UserAccount.objects.get(id=value_id)
         user = self.context['request'].user
 
-        if not user_obj.creator == user:
+        if not user_obj.id == user:
             raise serializers.ValidationError('You do not have permission to do that')
-        return value
+        return user
 
 class TokenSerializer(TokenObtainPairSerializer):
 

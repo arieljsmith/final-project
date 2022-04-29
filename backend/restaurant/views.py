@@ -3,7 +3,7 @@ from rest_framework import viewsets
 
 import restaurant
 
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwnerOrReadOnly, IsUserOrReadOnly
 from .serializers import RestaurantSerializer, CitySerializer, UserSerializer, TokenSerializer, RestaurantDetailSerializer, UserDetailSerializer
 from .models import Restaurant, City, UserAccount
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
@@ -97,7 +97,7 @@ class UserView(viewsets.ModelViewSet):
 
 
 class UserDetailView(APIView):
-    permissions_classes = (IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
+    permissions_classes = (IsUserOrReadOnly,)
     serializer_class = UserDetailSerializer
 
     def get_object(self, user_id):
