@@ -15,5 +15,5 @@ class UserPermissions(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         
-        return obj == request.user
+        return obj.id == request.user
 

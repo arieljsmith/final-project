@@ -3,7 +3,7 @@ from rest_framework import viewsets
 
 import restaurant
 
-from .permissions import IsOwnerOrReadOnly,UserPermissions
+from .permissions import IsOwnerOrReadOnly, UserPermissions
 from .serializers import RestaurantSerializer, CitySerializer, UserSerializer, TokenSerializer, RestaurantDetailSerializer, UserDetailSerializer
 from .models import Restaurant, City, UserAccount
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
@@ -42,7 +42,7 @@ class RestaurantDetailView(APIView):
         restaurant_instance = self.get_object(restaurant_id, request.user.id)
         if not restaurant_instance:
             return Response(
-                {'res': 'Object with restaurant id does not exist'},
+                {'Unauthorized'},
                 status=status.HTTP_400_BAD_REQUEST
             )
         
@@ -106,20 +106,25 @@ class UserDetailView(APIView):
         except UserAccount.DoesNotExist:
             return None
 
-    def get(self, request, user_id):
+    def get(self, request, user_id, *args, **kwargs):
         user_instance = self.get_object(user_id)
         serializer = UserDetailSerializer(user_instance)
         return Response(serializer.data)
 
-    def put(self, request, user_id):
+    def put(self, request, user_id, *args, **kwargs):
         user_instance = self.get_object(user_id)
+        if not user_instance:
+            return Response(
+                {'res': 'Object with restaurant id does not exist'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
         serializer = UserDetailSerializer(user_instance, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, user_id):
+    def delete(self, request, user_id, *args, **kwargs):
         user_instance = self.get_object(user_id)
         user_instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
