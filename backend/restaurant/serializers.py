@@ -40,7 +40,6 @@ class RestaurantDetailSerializer(serializers.ModelSerializer):
         rep['creator_id'] = instance.creator.id
         return rep
 
-
 class CitySerializer(serializers.ModelSerializer):
     creator = serializers.ReadOnlyField(source='creator.name')
     class Meta:
@@ -55,11 +54,18 @@ class CitySerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount
-        fields = ('email', 'name','id', 'password', 'image', 'location')
+        fields = ('email', 'name', 'id', 'password', 'image', 'location')
 
     def validate_password(self, value: str) -> str:
         # this changes user password from plaintext to a hashed value
         return make_password(value)
+        
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAccount
+        fields = ('email', 'name', 'id', 'password', 'image', 'location')
+        read_only_fields = ('email', 'name', 'password')
+
 
 class TokenSerializer(TokenObtainPairSerializer):
 

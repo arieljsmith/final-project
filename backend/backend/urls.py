@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
 )
 from restaurant import views
-from restaurant.views import BlacklistTokenUpdateView, RestaurantDetailView
+from restaurant.views import BlacklistTokenUpdateView, RestaurantDetailView, UserDetailView
 
 router = routers.DefaultRouter()
 router.register(r'restaurants', views.RestaurantView, 'restaurant')
@@ -22,4 +22,5 @@ urlpatterns = [
     path('api/logout/blacklist/', BlacklistTokenUpdateView.as_view(), name='blacklist'),
     path('api/auth/', include('rest_framework.urls')),
     path('api/update/<int:restaurant_id>/', RestaurantDetailView.as_view(), name='update'),
+    path('api/users/update/<int:user_id>/', UserDetailView.as_view(), name='update_user'),
 ]
